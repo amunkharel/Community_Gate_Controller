@@ -11,6 +11,6 @@ The B-STACK team consists of
 **T**anner Hunt \
 **A**mun Kharel \
 **C**ody Crane \
-**K**rista Conley \
+**K**rista Conley
 
 We are a team of young and energetic developers that are ready to take on your software engineering problems and create unique solutions by leveraging our unique talents and the latest design methodologies and latest technologies.
