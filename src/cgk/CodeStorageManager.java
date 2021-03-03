@@ -1,6 +1,6 @@
 package cgk;
 
-public class CodeStorageManagement{
+public class CodeStorageManager{
     public enum CodeType{
         GENERAL,
         PUBLIC_SERVICE,
