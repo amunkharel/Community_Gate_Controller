@@ -1,6 +1,6 @@
 package cgk;
 
-public class CodeVerification{
+public class CodeVerifier{
     public enum Responses{
         VALID,
         INVALID,

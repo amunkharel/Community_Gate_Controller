@@ -1,5 +1,5 @@
 package cgk;
 
-public class CodeManagement{
+public class CodeManager{
     public void handleAdmin(){}
 }
