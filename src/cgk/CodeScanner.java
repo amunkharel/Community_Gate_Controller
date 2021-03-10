@@ -60,11 +60,14 @@ public class CodeScanner {
     private interface IODeviceHandler {
         BlockingQueue<Integer> inputQueue = new LinkedBlockingQueue<>();
         default int listenForInput() throws InterruptedException {
-            return inputQueue.take();
+            inputQueue.clear();
+            int input = inputQueue.take();
+            inputQueue.add(-1);
+            return input;
         }
 
-        default void provideInput(int input) throws InterruptedException {
-            inputQueue.put(input);
+        default void provideInput(int input) throws IllegalAccessException {
+            if(inputQueue.offer(input)) throw new IllegalAccessException();
         }
     }
 
@@ -80,11 +83,9 @@ public class CodeScanner {
                         if(rawInput.length()>1) throw new NumberFormatException();
                         int input = Integer.parseInt(rawInput);
                         provideInput(input);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        e.printStackTrace();
-                    }catch (NumberFormatException e){
-                        System.out.println("Invalid Input");
+                    }catch (NumberFormatException | IllegalAccessException ignore){
+                        System.out.print(String.format("\033[%dA", 1)); // Move up
+                        System.out.print("\033[2K"); //clear line
                     }
                 }
             };
