@@ -47,7 +47,6 @@ public class CodeStorageManager{
             e.printStackTrace();
         }
         for(Integer item : codes) {
-            System.out.println(String.valueOf(item));
             try {
                 writer.write(String.valueOf(item));
                 writer.write("\n");
