@@ -1,5 +1,14 @@
 package cgk;
 
+import display.IOSceneDisplay;
+
 public class OutputScreenOperator{
-    public void print(String message){}
+    private IOSceneDisplay ioSceneDisplay;
+
+    public OutputScreenOperator(){
+        ioSceneDisplay = IOSceneDisplay.getInstance();
+    }
+    public void print(String message){
+        ioSceneDisplay.updateMessage(message);
+    }
 }
