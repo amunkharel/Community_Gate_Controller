@@ -20,6 +20,9 @@ public class CodeScanner {
             sb.append(input);
             outputScreenOperator.print(sb.toString().replaceAll(".","*"));
         }
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException ignored) {}
         return Integer.parseInt(sb.toString());
     }
 
