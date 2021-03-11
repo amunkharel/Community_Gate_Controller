@@ -30,7 +30,7 @@ public class CodeStorageManager{
         Queue<Integer> codes = new LinkedList<>();
         codes = getCodes(type);
 
-        if(!codes.isEmpty()) {
+        if(codes.size() == 3) {
             codes.remove();
         }
         codes.add(code);
