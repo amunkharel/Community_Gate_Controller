@@ -42,23 +42,9 @@ public class CodeScanner {
         return input;
     }
 
-    public static void main(String[] args) throws TimeoutException, InterruptedException {
-        CodeScanner codeScanner = new CodeScanner(new OutputScreenOperator());
-        System.out.println("CODE SCANNER");
-        while(true) {
-            int codeLength = 4;
-            System.out.println("The Code Length is: " + codeLength);
-            System.out.println("Enter one digit at a time...");
-            try {
-                System.out.println("Complete Code: " + codeScanner.scanCode(codeLength));
-            } catch (TimeoutException  e) {
-                System.out.println("ERROR: Timeout Expired - "+e+"\n Try Again...");
-            }
-        }
-    }
 
     private interface IODeviceHandler {
-        BlockingQueue<Integer> inputQueue = new LinkedBlockingQueue<>();
+        BlockingQueue<Integer> inputQueue = new ArrayBlockingQueue<>(1);
         default int listenForInput() throws InterruptedException {
             inputQueue.clear();
             int input = inputQueue.take();
@@ -66,8 +52,9 @@ public class CodeScanner {
             return input;
         }
 
-        default void provideInput(int input) throws IllegalAccessException {
-            if(inputQueue.offer(input)) throw new IllegalAccessException();
+        default void provideInput(int input) throws IllegalStateException {
+            inputQueue.add(input);
+
         }
     }
 
@@ -83,7 +70,7 @@ public class CodeScanner {
                         if(rawInput.length()>1) throw new NumberFormatException();
                         int input = Integer.parseInt(rawInput);
                         provideInput(input);
-                    }catch (NumberFormatException | IllegalAccessException ignore){
+                    }catch (IllegalStateException | NumberFormatException ignore){
                         System.out.print(String.format("\033[%dA", 1)); // Move up
                         System.out.print("\033[2K"); //clear line
                     }
