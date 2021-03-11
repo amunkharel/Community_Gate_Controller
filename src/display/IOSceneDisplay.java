@@ -54,18 +54,14 @@ public class IOSceneDisplay {
         System.out.println("  |1|2|3|  |"+ repeatChar('=',displayLength)+"|"+ repeatChar(' ',5)+currentGate[1]);
         System.out.print("  |4|5|6|  |");
         System.out.print(currentMessage + (repeatChar(' ',displayLength - currentMessage.length())) + "|");
-        System.out.print(repeatChar(' ',5)+currentGate[3]+"\n");
+        System.out.print(repeatChar(' ',5)+currentGate[2]+"\n");
         System.out.println("  |7|8|9|  |"+ repeatChar('=',displayLength)+"|"+ repeatChar(' ',5)+currentGate[3]);
         System.out.println("    |0|");
     }
 
     private void rollbackDisplay(){
         try {
-            for (int i = 0; i < 6; i++) {
-                System.out.print(String.format("\033[%dA", 1)); // Move up
-                System.out.print("\033[2K"); //clear line
-            }
-            System.out.print(String.format("\033[%dA", 1));
+            System.out.print("\033c");
         }catch (Exception ignore){}
     }
 
