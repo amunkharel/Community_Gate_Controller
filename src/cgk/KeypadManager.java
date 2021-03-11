@@ -41,10 +41,13 @@ public class KeypadManager {
         CodeVerifier.Responses entryStatus;
         while(true){
             if(invalidCodeAttempts >= 5){
-                outputScreenOperator.print("Cooldown");
-                try{
-                    sleep(10 * 1000);
-                } catch(InterruptedException ignored){}
+                for(int i = 10; i>0;i--) {
+                    outputScreenOperator.print("Cooldown " + i);
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException ignored) {
+                    }
+                }
             }
             outputScreenOperator.print("Enter Code");
             try{
@@ -54,6 +57,9 @@ public class KeypadManager {
                 // If there was a time out, either in the code scanner or the
                 // admin menu, go back to the idle state.
                 outputScreenOperator.print("Idle Timeout");
+                try {
+                    sleep(800);
+                } catch (InterruptedException ignored) {}
                 continue;
             }
             switch(entryStatus){
@@ -61,6 +67,9 @@ public class KeypadManager {
                     invalidCodeAttempts = 0;
                     outputScreenOperator.print("Welcome");
                     gateCommunicator.openGate();
+                    try {
+                        sleep(3000);
+                    } catch (InterruptedException ignored) {}
                     break;
                 case ADMIN:
                     invalidCodeAttempts = 0;
@@ -68,7 +77,10 @@ public class KeypadManager {
                     break;
                 case INVALID:
                     invalidCodeAttempts++;
-                    outputScreenOperator.print("INVALID CODE\n\n");
+                    outputScreenOperator.print("INVALID CODE");
+                    try {
+                        sleep(800);
+                    } catch (InterruptedException ignored) {}
                     break;
             }
         }
